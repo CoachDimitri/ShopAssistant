@@ -7,7 +7,7 @@ const EditBrand = ({ show, onHide }) => {
 
     const [brands, setBrands] = useState([]);
 
-    const [oldBrandId, setOldBrandId] = useState(null);
+    const [oldBrand, setOldBrand] = useState(null);
     const [newBrandName, setNewBrandName] = useState('');
 
     useEffect(() => {
@@ -23,18 +23,18 @@ const EditBrand = ({ show, onHide }) => {
     }, []);
 
     const handleSubmit = () => {
-        editBrand({ id: oldBrandId, name: newBrandName }).then(data => {
+        editBrand({ id: oldBrand.id, name: newBrandName }).then(data => {
             console.log(data)
             onHide();
         });
-        console.log(oldBrandId)
+        console.log(oldBrand)
         console.log(newBrandName)
     }
 
     const onOldBrandChange = (event) => {
         const brandId = parseInt(event.target.value);
         const brand = brands.find((b) => b.id === brandId);
-        setOldBrandId(brand.id);
+        setOldBrand(brand.id);
     };
 
     const onNewBrandChange = (event) => {
@@ -58,7 +58,7 @@ const EditBrand = ({ show, onHide }) => {
                         <Form.Label>Выберите бренд для удаления</Form.Label>
                         <Form.Control
                             as="select"
-                            value={selectedBrand ? selectedBrand.id : ''}
+                            value={oldBrand ? oldBrand.id : ''}
                             onChange={onOldBrandChange}
                             custom
                         >
