@@ -32,11 +32,14 @@ class BrandController {
             {newBrandName},
             {where: {id}, returning: true}
         );
-        if (updatedCount !== 1) {
-            return res.status(404).json({message: 'Brand not found'});
-        } else {
-            return res.json(updatedBrand);
-        }
+        console.log(updatedCount)
+        console.log(updatedBrand)
+        // if (updatedCount !== 1) {
+        //     return res.status(404).json({message: 'Brand not found'});
+        // } else {
+        //     return res.json(updatedBrand);
+        // }
+        res.json("dwadwadwa")
     }
 
 }
