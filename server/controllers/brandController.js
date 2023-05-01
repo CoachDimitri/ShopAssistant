@@ -15,6 +15,7 @@ class BrandController {
 
     async delete(req, res) {
         const {id} = req.params
+        console.log(id)
         const deletedBrand = await Brand.destroy({where: {id}})
         if (!deletedBrand) {
             throw ApiError.badRequest(`Брэнд не найден`)
