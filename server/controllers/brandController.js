@@ -28,12 +28,8 @@ class BrandController {
         console.log(id)
         console.log(newBrandName)
         console.log("++++++++++++++++")
-        const [updatedCount, [updatedBrand]] = await Brand.update(
-            {newBrandName},
-            {where: {id}, returning: true}
-        );
-        console.log(updatedCount)
-        console.log(updatedBrand)
+        const brand = await Brand.findOne({where: {id}});
+        await brand.update(newBrandName);
         // if (updatedCount !== 1) {
         //     return res.status(404).json({message: 'Brand not found'});
         // } else {
