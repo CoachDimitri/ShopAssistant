@@ -3,7 +3,7 @@ import { $authHost, $host } from './index';
 
 // добавляем экспорт editBrand
 export const editBrand = async (oldBrandId, newBrandName) => {
-    const { data } = await $authHost.put(`api/brand/${oldBrandId}/${newBrandName}`);
+    const { data } = await $authHost.put(`api/brand/${oldBrandId}`);
     return data;
 };
 

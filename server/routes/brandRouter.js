@@ -5,7 +5,7 @@ const brandController = require('../controllers/brandController')
 router.post('/', brandController.create)
 router.get('/', brandController.getAll)
 router.delete('/:id', brandController.delete)
-router.put('/:oldBrandId', brandController.edit)
+router.put('/:id', brandController.edit)
 
 
 module.exports = router
