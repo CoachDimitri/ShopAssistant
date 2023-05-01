@@ -36,7 +36,6 @@ const EditBrand = ({ show, onHide }) => {
 
     const onNewBrandChange = (event) => {
         setNewBrandName(event.target.value)
-        handleSubmit()
     };
 
     return (
@@ -72,12 +71,8 @@ const EditBrand = ({ show, onHide }) => {
                         <Form.Label>Новое название бренда</Form.Label>
                         <Form.Control type="text" placeholder="Введите новое название" value={newBrandName} onChange={onNewBrandChange} />
                     </Form.Group>
-                    <Form.Group>
-
-                        <Button  onClick={()=> handleSubmit()} type="submit">Сохранить</Button>
-                    </Form.Group>
-                    <Button variant="outline-danger" onClick={()=> handleSubmit()} type="submit">Закрыть</Button>
-                    <Button variant="outline-success" onClick={()=> handleSubmit()} type="submit">Сохранить</Button>
+                    <Button variant="outline-danger" onClick={onHide} type="submit">Закрыть</Button>
+                    <Button variant="outline-success" onClick={handleSubmit} type="submit">Сохранить</Button>
 
                 </Form>
             </Modal.Body>

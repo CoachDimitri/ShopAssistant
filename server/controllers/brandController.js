@@ -24,19 +24,19 @@ class BrandController {
     }
 
     async edit(req, res) {
-        let {oldBrandId, newBrandName} = req.body
-        console.log(oldBrandId)
+        let {id, newBrandName} = req.body
+        console.log(id)
         console.log(newBrandName)
         console.log("++++++++++++++++")
-        // const [updatedCount, [updatedBrand]] = await Brand.update(
-        //     {newBrandName},
-        //     {where: {oldBrandId}, returning: true}
-        // );
-        // if (updatedCount !== 1) {
-        //     return res.status(404).json({message: 'Brand not found'});
-        // } else {
-        //     return res.json(updatedBrand);
-        // }
+        const [updatedCount, [updatedBrand]] = await Brand.update(
+            {newBrandName},
+            {where: {id}, returning: true}
+        );
+        if (updatedCount !== 1) {
+            return res.status(404).json({message: 'Brand not found'});
+        } else {
+            return res.json(updatedBrand);
+        }
     }
 
 }
