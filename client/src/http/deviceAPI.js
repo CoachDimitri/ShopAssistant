@@ -2,8 +2,8 @@ import { $authHost, $host } from './index';
 
 
 // добавляем экспорт editBrand
-export const editBrand = async (oldBrandName, newBrandName) => {
-    const { data } = await $authHost.put(`api/brand/${oldBrandName}/${newBrandName}`);
+export const editBrand = async (oldBrandId, newBrandName) => {
+    const { data } = await $authHost.put(`api/brand/${oldBrandId}/${newBrandName}`);
     return data;
 };
 

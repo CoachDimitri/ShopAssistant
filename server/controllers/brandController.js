@@ -23,11 +23,11 @@ class BrandController {
     }
 
     async edit(req, res) {
-        const { oldBrandName, newBrandName } = req.body;
+        const { oldBrandId, newBrandName } = req.body;
         try {
             const [updatedCount, [updatedBrand]] = await Brand.update(
                 { newBrandName },
-                { where: { oldBrandName }, returning: true }
+                { where: { oldBrandId }, returning: true }
             );
 
             if (updatedCount !== 1) {
