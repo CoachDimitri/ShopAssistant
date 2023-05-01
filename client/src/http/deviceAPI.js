@@ -3,13 +3,18 @@ import { $authHost, $host } from './index';
 
 // добавляем экспорт editBrand
 export const editBrand = async (oldBrandId, newBrandName) => {
-    const { data } = await $authHost.put(`api/brand/`+ oldBrandId);
+    const { data } = await $host.get('api/brand', {
+        params: {
+            oldBrandId,
+            newBrandName,
+        },
+    });
     return data;
 };
 
 // добавляем экспорт editType
 export const editType = async (type) => {
-    const { data } = await $authHost.put(`api/type/${type.id}`, type);
+    const { data } = await $authHost.put('api/type/${type.id}', type);
     return data;
 };
 
@@ -24,7 +29,7 @@ export const fetchTypes = async () => {
 };
 
 export const deleteType = async (id) => {
-    const { data } = await $authHost.delete(`api/type/${id}`);
+    const { data } = await $authHost.delete('api/type/${id}');
     return data;
 };
 
@@ -49,7 +54,7 @@ export const fetchBrands = async () => {
 };
 
 export const deleteBrand = async (id) => {
-    const { data } = await $authHost.delete(`api/brand/${id}`);
+    const { data } = await $authHost.delete('api/brand/${id}');
     return data;
 };
 
@@ -59,7 +64,7 @@ export const createDevice = async (device) => {
 };
 
 export const deleteDevice = async (id) => {
-    const response = await $authHost.delete(`api/device/${id}`);
+    const response = await $authHost.delete('api/device/${id}');
     return response.data;
 };
 

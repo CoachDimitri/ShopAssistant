@@ -23,7 +23,7 @@ const EditBrand = ({ show, onHide }) => {
     }, []);
 
     const handleSubmit = () => {
-        editBrand({ id: oldBrand.id, name: newBrandName }).then(data => {
+        editBrand(oldBrand.id, newBrandName).then(data => {
             console.log(data)
         });
     }
