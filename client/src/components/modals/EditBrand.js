@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from "react-bootstrap/Modal";
-import { Form, Button } from "react-bootstrap";
+import {Form, Button, FormGroup} from "react-bootstrap";
 import {editBrand, fetchBrands} from "../../http/deviceAPI";
 
 const EditBrand = ({ show, onHide }) => {
@@ -25,20 +25,18 @@ const EditBrand = ({ show, onHide }) => {
     const handleSubmit = () => {
         editBrand({ id: oldBrand.id, name: newBrandName }).then(data => {
             console.log(data)
-            onHide();
         });
-        console.log(oldBrand)
-        console.log(newBrandName)
     }
 
     const onOldBrandChange = (event) => {
         const brandId = parseInt(event.target.value);
         const brand = brands.find((b) => b.id === brandId);
-        setOldBrand(brand.id);
+        setOldBrand(brand);
     };
 
     const onNewBrandChange = (event) => {
         setNewBrandName(event.target.value)
+        handleSubmit()
     };
 
     return (
@@ -74,8 +72,13 @@ const EditBrand = ({ show, onHide }) => {
                         <Form.Label>Новое название бренда</Form.Label>
                         <Form.Control type="text" placeholder="Введите новое название" value={newBrandName} onChange={onNewBrandChange} />
                     </Form.Group>
-                    <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                    <Button variant="outline-success" onClick={handleSubmit} type="submit">Сохранить</Button>
+                    <Form.Group>
+
+                        <Button  onClick={()=> handleSubmit()} type="submit">Сохранить</Button>
+                    </Form.Group>
+                    <Button variant="outline-danger" onClick={()=> handleSubmit()} type="submit">Закрыть</Button>
+                    <Button variant="outline-success" onClick={()=> handleSubmit()} type="submit">Сохранить</Button>
+
                 </Form>
             </Modal.Body>
         </Modal>
