@@ -24,7 +24,7 @@ class BrandController {
     }
 
     async edit(req, res) {
-        let {oldBrandId, newBrandName} = req.query
+        let {oldBrandId, newBrandName} = req.body
         console.log(oldBrandId)
         console.log(newBrandName)
         console.log("++++++++++++++++")
