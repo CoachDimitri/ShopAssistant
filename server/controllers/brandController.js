@@ -29,7 +29,8 @@ class BrandController {
         console.log(newBrandName)
         console.log("++++++++++++++++")
         const brand = await Brand.findOne({where: {id}});
-        await brand.update(newBrandName);
+        await brand.destroy();
+        await Brand.create({newBrandName})
         // if (updatedCount !== 1) {
         //     return res.status(404).json({message: 'Brand not found'});
         // } else {
