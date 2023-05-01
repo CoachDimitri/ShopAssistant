@@ -1,0 +1,41 @@
+.basket-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px);
+    text-align: center;
+}
+.basket-container {
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tfoot tr:first-child {
+    font-weight: bold;
+}
+
+.total-label {
+    font-weight: bold;
+}
+
+.total-price {
+    font-weight: bold;
+    text-align: right;
+}
