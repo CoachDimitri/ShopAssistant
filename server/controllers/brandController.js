@@ -24,18 +24,14 @@ class BrandController {
     }
 
     async edit(req, res) {
-        let {id, newBrandName} = req.body
-        console.log(id)
-        console.log(newBrandName)
-        console.log("++++++++++++++++")
-        await Brand.destroy({where: {id}})
-        const brand = await Brand.create({newBrandName})
-        // if (updatedCount !== 1) {
-        //     return res.status(404).json({message: 'Brand not found'});
-        // } else {
-        //     return res.json(updatedBrand);
-        // }
-        res.json(brand)
+        const { id, newBrandName } = req.body;
+
+        const [_, [brand]] = await Brand.update(
+            { name: newBrandName },
+            { where: { id }, individualHooks: true, returning: true }
+        );
+
+        return res.json(brand);
     }
 
 }

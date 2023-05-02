@@ -5,7 +5,7 @@ import CreateDevice from '../components/modals/CreateDevice';
 import CreateType from '../components/modals/CreateType';
 import BrandList from '../components/modals/BrandList';
 import TypeList from "../components/modals/TypeList";
-import EditType from "../components/modals/UpdateType";
+import EditType from "../components/modals/EditType";
 import EditBrand from "../components/modals/EditBrand";
 
 const Admin = () => {
