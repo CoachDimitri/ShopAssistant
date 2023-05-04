@@ -23,24 +23,4 @@ export const check = async () => {
     return jwt_decode(data.token);
 };
 
-export const createUser = async (user) => {
-    const { data } = await $authHost.post("api/user", user);
-    return data;
-};
-
-export const fetchUsers = async () => {
-    const { data } = await $authHost.get("api/user");
-    return data;
-};
-
-export const updateUser = async (id, user) => {
-    const { data } = await $authHost.put(`api/user/${id}`, user);
-    return data;
-};
-
-export const deleteUser = async (id) => {
-    const { data } = await $authHost.delete(`api/user/${id}`);
-    return data;
-};
-
 

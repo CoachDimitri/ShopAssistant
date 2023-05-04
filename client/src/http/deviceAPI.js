@@ -1,4 +1,5 @@
 import { $authHost, $host } from './index';
+import basket from "../pages/Basket";
 
 
 // добавляем экспорт editBrand
@@ -85,10 +86,22 @@ export const getAllTypes = async () => {
     return data;
 };
 
+
+
 export const listBasket = []
 export const addToBasketList =  (id) => {
     listBasket.push(id)
 }
+
+export const createBasket = async (userId) => {
+    const { data } = await $authHost.post(`api/basket`, {userId});
+    return data;
+};
+
+export const createBasketDevice = async (basketId, deviceId, count) => {
+    const { data } = await $authHost.post("api/basketDevice", {basketId, deviceId, count});
+    return data;
+};
 
 
 

@@ -1,16 +1,37 @@
 import { NavLink } from "react-router-dom";
-import { listBasket, fetchOneDevice } from '../http/deviceAPI';
-import { useEffect, useState } from "react";
+import {listBasket, fetchOneDevice, createBasket, createBasketDevice} from '../http/deviceAPI';
+import {useContext, useEffect, useState} from "react";
 import { SHOP_ROUTE } from "../utils/consts";
 import './Basket.css';
-import axios from "axios";
+import {Context} from "../index";
+import userId from "../App"
+import {check} from "../http/userAPI";
 
-const Basket = () => {
+
+
+const Basket = ({show, onHide}) => {
     const [basketItems, setBasketItems] = useState([]);
-    const userId = localStorage.getItem('userId');
-
+    const {user} = useContext(Context)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+
+        // async function checkAndReturnId() {
+        //     try {
+        //         const data = await check();
+        //         user.setUser(true);
+        //         user.setIsAuth(true);
+        //         console.log(data.id);
+        //         return data.id;
+        //     } catch (error) {
+        //         console.log(error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // }
+
+
+
         const fetchBasketItems = async () => {
             const idCounts = listBasket.reduce((acc, id) => {
                 if (id in acc) {
@@ -56,34 +77,27 @@ const Basket = () => {
         setBasketItems(updatedItems);
     };
 
-    const totalPrice = basketItems.reduce((acc, item) => {
-        return acc + item.price * item.count;
-    }, 0);
+    let totalPrice = 0;
+    let itemCount = 0;
 
+    basketItems.forEach(item => {
+        totalPrice += item.price * item.count;
+        itemCount += item.count;
+    });
+    const handleSaveBasket = async () => {
+            const newBasket = await createBasket(userId); // создаем новую корзину и получаем ее id
+            const basketId = newBasket.id;
 
-    const itemCount = basketItems.reduce((acc, item) => {
-        return acc + item.count;
-    }, 0);
-    const handleCheckout = async () => {
-        const items = basketItems.map(item => {
-            return {
-                productId: item.id,
-                count: item.count,
-                price: item.price
-            };
-        });
-        const data = {
-            items,
-            userId
-        };
-        try {
-            await axios.post('/api/basket', data);
-            alert('Заказ успешно оформлен');
+            // сохраняем все элементы корзины в базу данных
+            for (const item of basketItems) {
+                await createBasketDevice(basketId, item.id, item.count);
+            }
+
+            // очищаем корзину и скрываем компонент
             setBasketItems([]);
-        } catch (error) {
-            alert(`Не удалось оформить заказ: ${error}`);
-        }
+            onHide();
     };
+
 
     return (
         <div className="basket-empty">
@@ -122,11 +136,12 @@ const Basket = () => {
                     <div className="basket-total">
                         <p>Общее количество товаров: {itemCount}</p>
                         <p>Общая стоимость: {totalPrice} руб.</p>
-                        <button onClick={handleCheckout}>Оформить заказ</button>
+                        <button onClick={handleSaveBasket}>Сохранить в basket и basketDevice</button>
                     </div>
                 </div>
             )}
         </div>
     );
 };
+
 export default Basket;
