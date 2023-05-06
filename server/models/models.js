@@ -51,6 +51,36 @@ const TypeBrand = sequelize.define('type_brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
+const Orders = sequelize.define('orders', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    complete: {type: DataTypes.BOOLEAN, defaultValue: false},
+    mobile: {type: DataTypes.STRING(25), allowNull: false},
+    userId: {type: DataTypes.INTEGER, allowNull: true},
+})
+
+const OrderDevice = sequelize.define('order_device', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    deviceId: {type: DataTypes.INTEGER, allowNull: false},
+    orderId: {type: DataTypes.INTEGER, allowNull: false},
+    count: {type: DataTypes.INTEGER, allowNull: false},
+})
+
+User.hasMany(Orders);
+Orders.belongsTo(User,
+    {
+        foreignKey: { name: 'userId' },
+        onDelete: 'CASCADE',
+    }
+);
+
+Orders.hasMany(OrderDevice);
+OrderDevice.belongsTo(Orders,
+    {
+        foreignKey: { name: 'orderId' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    }
+);
 
 User.hasMany(Basket)
 Basket.belongsTo(User)

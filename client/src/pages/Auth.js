@@ -9,6 +9,7 @@ import {login, registration} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 
+
 const Auth = observer(() => {
     const {user} = useContext(Context)
     const location = useLocation()

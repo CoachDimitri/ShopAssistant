@@ -4,34 +4,15 @@ import {useContext, useEffect, useState} from "react";
 import { SHOP_ROUTE } from "../utils/consts";
 import './Basket.css';
 import {Context} from "../index";
-import userId from "../App"
-import {check} from "../http/userAPI";
-
 
 
 const Basket = ({show, onHide}) => {
     const [basketItems, setBasketItems] = useState([]);
     const {user} = useContext(Context)
+    //const userId = user.userId;
+    const userId = 2
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
-
-        // async function checkAndReturnId() {
-        //     try {
-        //         const data = await check();
-        //         user.setUser(true);
-        //         user.setIsAuth(true);
-        //         console.log(data.id);
-        //         return data.id;
-        //     } catch (error) {
-        //         console.log(error);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // }
-
-
-
         const fetchBasketItems = async () => {
             const idCounts = listBasket.reduce((acc, id) => {
                 if (id in acc) {
@@ -85,9 +66,9 @@ const Basket = ({show, onHide}) => {
         itemCount += item.count;
     });
     const handleSaveBasket = async () => {
-            const newBasket = await createBasket(userId); // создаем новую корзину и получаем ее id
+            const newBasket = await createBasket(userId);
             const basketId = newBasket.id;
-
+            console.log(newBasket.id)
             // сохраняем все элементы корзины в базу данных
             for (const item of basketItems) {
                 await createBasketDevice(basketId, item.id, item.count);

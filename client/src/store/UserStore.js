@@ -20,4 +20,8 @@ export default class UserStore {
     get user() {
         return this._user
     }
+    setUserId(userId) {
+        this._userId = userId
+    }
+
 }

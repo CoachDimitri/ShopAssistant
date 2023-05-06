@@ -46,6 +46,14 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }
+    async getUserId(req, res, next) {
+        try {
+            const userId = req.user.id
+            return res.json({userId})
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
     async delete(req, res, next) {
         try {
             const user = await User.findByPk(req.user.id)
